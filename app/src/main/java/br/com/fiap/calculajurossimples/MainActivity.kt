@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import br.com.fiap.calculajurossimples.calculos.calcularJuros
 import br.com.fiap.calculajurossimples.calculos.calcularMontante
 import br.com.fiap.calculajurossimples.components.CaixaDeEntrada
+import br.com.fiap.calculajurossimples.components.CardResultado
 import br.com.fiap.calculajurossimples.ui.theme.CalculaJurosSImplesTheme
 
 class MainActivity : ComponentActivity() {
@@ -86,13 +87,15 @@ fun JurosScreen() {
                         text = "Dados do Investimento",
                         fontWeight = FontWeight.Bold
                     )
-
+                    
                     CaixaDeEntrada(
                         label = "Valor do investimento",
                         placeHolder = "Quanto deseja investir?",
                         value = capital,
                         keyboardType = KeyboardType.Decimal,
-                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
                         atualizarValor = {
                             capital = it
                         }
@@ -102,7 +105,9 @@ fun JurosScreen() {
                         placeHolder = "Qual a taxa de juros mensal?",
                         value = taxa,
                         keyboardType = KeyboardType.Decimal,
-                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
                         atualizarValor = {
                             taxa = it
                         }
@@ -112,7 +117,9 @@ fun JurosScreen() {
                         placeHolder = "Qual o tempo em meses?",
                         value = tempo,
                         keyboardType = KeyboardType.Decimal,
-                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
                         atualizarValor = {
                             tempo = it
                         }
@@ -138,59 +145,7 @@ fun JurosScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
-            // Resultado da aplicação
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF4CAF50)
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-                        //.fillMaxSize()
-                        .padding(16.dp)
-                ) {
-                    Text(
-                        text = "Resultado",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            text = "Juros",
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = juros.toString(),
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            text = "Montante",
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = montante.toString(),
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                }
-            }
+            CardResultado(juros = juros, montante = montante)
         }
     }
 }
