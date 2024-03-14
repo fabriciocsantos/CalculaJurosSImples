@@ -16,11 +16,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.fiap.calculajurossimples.calculos.calcularJuros
 import br.com.fiap.calculajurossimples.calculos.calcularMontante
+import br.com.fiap.calculajurossimples.components.CaixaDeEntrada
 import br.com.fiap.calculajurossimples.ui.theme.CalculaJurosSImplesTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,8 +59,8 @@ fun JurosScreen() {
     var capital by remember { mutableStateOf("") }
     var taxa by remember { mutableStateOf("") }
     var tempo by remember { mutableStateOf("") }
-    var juros by remember { mutableStateOf(0.0) }
-    var montante by remember { mutableStateOf(0.0) }
+    var juros by remember { mutableDoubleStateOf(0.0) }
+    var montante by remember { mutableDoubleStateOf(0.0) }
 
     Box(
         modifier = Modifier.padding(16.dp),
@@ -85,54 +86,36 @@ fun JurosScreen() {
                         text = "Dados do Investimento",
                         fontWeight = FontWeight.Bold
                     )
-                    // Caixas de entrada da aplicação
-                    OutlinedTextField(
+
+                    CaixaDeEntrada(
+                        label = "Valor do investimento",
+                        placeHolder = "Quanto deseja investir?",
                         value = capital,
-                        onValueChange = { capital = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Quanto deseja investir?")
-                        },
-                        label = {
-                            Text(text = "Valor do investimento")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
+                        keyboardType = KeyboardType.Decimal,
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        atualizarValor = {
+                            capital = it
+                        }
                     )
-                    OutlinedTextField(
+                    CaixaDeEntrada(
+                        label = "Taxa de juros mensal",
+                        placeHolder = "Qual a taxa de juros mensal?",
                         value = taxa,
-                        onValueChange = { taxa = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Qual a taxa de juros mensal?")
-                        },
-                        label = {
-                            Text(text = "Taxa de juros mensal")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
+                        keyboardType = KeyboardType.Decimal,
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        atualizarValor = {
+                            taxa = it
+                        }
                     )
-                    OutlinedTextField(
+                    CaixaDeEntrada(
+                        label = "Período em meses",
+                        placeHolder = "Qual o tempo em meses?",
                         value = tempo,
-                        onValueChange = { tempo = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Qual o tempo em meses?")
-                        },
-                        label = {
-                            Text(text = "Período em meses")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
+                        keyboardType = KeyboardType.Decimal,
+                        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                        atualizarValor = {
+                            tempo = it
+                        }
                     )
                     Button(
                         onClick = {
